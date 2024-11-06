@@ -6,7 +6,7 @@
 /*   By: mshariar <mshariar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:26:50 by mshariar          #+#    #+#             */
-/*   Updated: 2024/11/05 16:48:59 by mshariar         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:13:20 by mshariar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char	*nxt_line(t_list *list)
 		return (NULL);
 	len = get_len(list);
 	strs = malloc(len + 1);
-	if (strs == NULL)
+	if (!strs)
 		return (NULL);
 	copy_lines(list, strs);
 	return (strs);
 }
 
-void	write_line(t_list **list, char *buff)
+void	lst_new_and_append(t_list **list, char *buff)
 {
 	t_list	*newnode;
 	t_list	*last_node;
@@ -36,12 +36,13 @@ void	write_line(t_list **list, char *buff)
 	newnode = malloc(sizeof(t_list));
 	if (newnode == NULL)
 		return ;
+	newnode->content = buff;
+	newnode->next = NULL;
 	if (last_node == NULL)
 		*list = newnode;
 	else
 		last_node->next = newnode;
-	newnode->content = buff;
-	newnode->next = NULL;
+	
 }
 
 void	create_list(t_list **list, int fd)
@@ -51,17 +52,17 @@ void	create_list(t_list **list, int fd)
 
 	while (!find_newline(*list))
 	{
-		buff = malloc(BUFFER_SIZE + 1);
+		buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (buff == NULL)
 			return ;
 		chars_read = read(fd, buff, BUFFER_SIZE);
-		if (!chars_read)
+		if (chars_read <= 0)
 		{
 			free(buff);
 			return ;
 		}
 		buff[chars_read] = '\0';
-		write_line(list, buff);
+		lst_new_and_append(list, buff);
 	}
 }
 
@@ -95,12 +96,23 @@ char	*get_next_line(int fd)
 	static t_list	*list;
 	char			*newline;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &newline, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	if (read(fd, &newline, 0) < 0)
+	{
+		free(list);
+		free(newline);
+		list = NULL;
+		return (NULL);
+	}
 	create_list(&list, fd);
 	if (list == NULL)
 		return (NULL);
 	newline = nxt_line(list);
+	{
+		if (!newline)
+			free()
+	}
 	list_clear(&list);
 	return (newline);
 }

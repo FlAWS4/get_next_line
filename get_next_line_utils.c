@@ -6,7 +6,7 @@
 /*   By: mshariar <mshariar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:09:02 by mshariar          #+#    #+#             */
-/*   Updated: 2024/11/05 16:40:30 by mshariar         ###   ########.fr       */
+/*   Updated: 2024/11/06 18:12:14 by mshariar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	get_len(t_list *list)
 		{
 			if (list->content[i] == '\n')
 			{
-				++len;
+				len++;
 				return (len);
 			}
-			++i;
-			++len;
+			i++;
+			len++;
 		}
 		list = list->next;
 	}
@@ -86,7 +86,7 @@ int	find_newline(t_list *list)
 		{
 			if (list->content[i] == '\n')
 				return (1);
-			++i;
+			i++;
 		}
 		list = list->next;
 	}
@@ -113,6 +113,5 @@ void	free_malloc(t_list **list, t_list *newnode, char *buff)
 	{
 		free(buff);
 		free(newnode);
-		free(tmp);
 	}
 }

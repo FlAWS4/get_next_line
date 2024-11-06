@@ -6,7 +6,7 @@
 /*   By: mshariar <mshariar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:22:22 by mshariar          #+#    #+#             */
-/*   Updated: 2024/11/05 16:25:11 by mshariar         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:26:39 by mshariar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 typedef struct s_list
 {
+	char			buffer[BUFFER_SIZE];
 	char			*content;
 	struct s_list	*next;
 }		t_list;
