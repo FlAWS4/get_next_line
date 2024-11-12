@@ -6,7 +6,7 @@
 /*   By: mshariar <mshariar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:26:50 by mshariar          #+#    #+#             */
-/*   Updated: 2024/11/12 16:32:07 by mshariar         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:08:30 by mshariar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ char	*get_lines(char *str)
 		return (NULL);
 	while (str[i] && str[i] != '\n')
 		i++;
-	s = (char *)malloc(sizeof(char) * (i + 2));
+	if (str[i] == '\n')
+		i++;
+	s = (char *)malloc(sizeof(char) * (i + 1));
 	if (!s || !str)
 		return (NULL);
 	i = 0;
@@ -73,7 +75,7 @@ char	*read_and_append(int fd, char *str)
 
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
-		return (NULL);
+		return (free(str), NULL);
 	read_bytes = 1;
 	while (!ft_strchr(str, '\n') && read_bytes != 0)
 	{
@@ -81,7 +83,6 @@ char	*read_and_append(int fd, char *str)
 		if (read_bytes < 0)
 		{
 			free(str);
-			
 			free(buff);
 			return (NULL);
 		}

@@ -6,7 +6,7 @@
 /*   By: mshariar <mshariar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 13:09:02 by mshariar          #+#    #+#             */
-/*   Updated: 2024/11/12 14:42:13 by mshariar         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:06:38 by mshariar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,18 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	j;
 	char	*str;
 
+	if (!s2)
+		return (free(s1), NULL);
 	if (!s1)
 	{
 		s1 = (char *)malloc(1 * sizeof(char));
+		if (!s1)
+			return (NULL);
 		s1[0] = '\0';
 	}
 	str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (!str || !s2)
-		return (NULL);
+	if (!str)
+		return (free (s1), NULL);
 	i = -1;
 	j = 0;
 	if (s1)
