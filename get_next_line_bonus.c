@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mshariar <mshariar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 17:26:50 by mshariar          #+#    #+#             */
-/*   Updated: 2024/11/12 16:32:07 by mshariar         ###   ########.fr       */
+/*   Created: 2024/11/12 15:23:05 by mshariar          #+#    #+#             */
+/*   Updated: 2024/11/12 16:38:21 by mshariar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_lines(char *str)
 {
@@ -81,7 +81,6 @@ char	*read_and_append(int fd, char *str)
 		if (read_bytes < 0)
 		{
 			free(str);
-			
 			free(buff);
 			return (NULL);
 		}
@@ -95,20 +94,14 @@ char	*read_and_append(int fd, char *str)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*str;
+	static char	*str[256];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 256)
 		return (0);
-	str = read_and_append(fd, str);
-	if (!str)
+	str[fd] = read_and_append(fd, str[fd]);
+	if (!str[fd])
 		return (NULL);
-	line = get_lines(str);
-	if (!line)
-	{
-		free(str);
-		str = NULL;
-		return (NULL);
-	}
-	str = stock(str);
+	line = get_lines(str[fd]);
+	str[fd] = stock(str[fd]);
 	return (line);
 }

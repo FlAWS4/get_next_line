@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mshariar <mshariar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 17:22:22 by mshariar          #+#    #+#             */
-/*   Updated: 2024/11/09 19:10:55 by mshariar         ###   ########.fr       */
+/*   Created: 2024/11/12 15:20:59 by mshariar          #+#    #+#             */
+/*   Updated: 2024/11/12 15:28:22 by mshariar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -22,12 +22,6 @@
 # include "stdlib.h"
 # include "fcntl.h"
 # include "string.h"
-
-typedef struct s_list
-{
-	char			*content;
-	struct s_list	*next;
-}		t_list;
 
 size_t	ft_strlen(char *str);
 char	*get_lines(char	*str);
